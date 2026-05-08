@@ -1,59 +1,126 @@
-# PortalEstudiantes
+# Portal Estudiantes — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.25.
+Aplicación web desarrollada en **Angular 20** con **PrimeNG** como librería de componentes UI.
 
-## Development server
+---
 
-To start a local development server, run:
+## Requisitos previos
 
-```bash
-ng serve
-```
+| Herramienta | Versión mínima | Descarga |
+|---|---|---|
+| Node.js | 20.x (LTS) | https://nodejs.org |
+| npm | 10.x (incluido con Node) | — |
+| Angular CLI | 20.x | `npm install -g @angular/cli` |
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+> Verificá las versiones instaladas con: `node -v` y `npm -v`
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Instalación
 
 ```bash
-ng generate --help
+# Clonar el repositorio y entrar a la carpeta del frontend
+cd front/portal-estudiantes
+
+# Instalar dependencias
+npm install
 ```
 
-## Building
+---
 
-To build the project run:
+## Configuración
+
+El frontend se comunica con el backend a través de un proxy. El archivo `proxy.conf.json` ya está configurado para apuntar al backend en:
+
+```
+https://localhost:7090
+```
+
+Si el backend corre en otro puerto, editá `proxy.conf.json`:
+
+```json
+{
+  "/api": {
+    "target": "https://localhost:PUERTO_DEL_BACKEND",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
+```
+
+---
+
+## Ejecución
+
+### Desarrollo con proxy (recomendado)
+
+Levantá primero el backend y luego ejecutá:
 
 ```bash
-ng build
+npm run start:proxy
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Esto inicia el servidor de desarrollo **con el proxy** hacia el backend y abre el navegador automáticamente en:
 
-## Running unit tests
+```
+http://localhost:4200
+```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Desarrollo sin proxy
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Build de producción
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Los artefactos quedan en la carpeta `dist/`.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Credenciales por defecto
+
+Para ingresar al portal usá el usuario administrador creado por los scripts de base de datos:
+
+| Campo | Valor |
+|---|---|
+| Usuario | `admin` |
+| Contraseña | `Admin123!` |
+
+---
+
+## Scripts disponibles
+
+| Comando | Descripción |
+|---|---|
+| `npm start` | Servidor de desarrollo sin proxy |
+| `npm run start:proxy` | Servidor de desarrollo con proxy al backend |
+| `npm run build` | Build de producción |
+| `npm run watch` | Build en modo watch (desarrollo) |
+| `npm test` | Ejecutar tests unitarios con Karma |
+| `npm run test:ci` | Tests en modo CI (headless) |
+
+---
+
+## Solución de problemas frecuentes
+
+**`ng` no se reconoce como comando**
+```bash
+npm install -g @angular/cli
+```
+
+**Error de CORS o conexión al backend**
+- Asegurate de usar `npm run start:proxy` (no `npm start`)
+- Verificá que el backend esté corriendo en `https://localhost:7090`
+
+**Error de certificado SSL del backend en el proxy**
+- El proxy ya tiene `"secure": false` para ignorar el certificado de desarrollo
+
+**Puerto 4200 en uso**
+```bash
+ng serve --port 4201
+```
