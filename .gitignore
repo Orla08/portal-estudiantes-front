@@ -56,3 +56,4 @@ node_modules/
 .claude/
 .agents/
 playwright.config.ts
+skills-lock.json
