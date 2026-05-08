@@ -1,0 +1,49 @@
+<app-navbar />
+<p-toast />
+<div class="p-4 md:p-6 animate-in">
+  <div class="page-header">
+    <a class="page-header__back" routerLink="/inicio" aria-label="Volver al inicio">
+      <i class="pi pi-arrow-left"></i>
+    </a>
+    <h2 class="page-header__title">Selección de Materias</h2>
+    <div class="page-header__actions">
+      <span class="text-sm text-600 font-semibold mr-2">
+        Seleccionadas: {{ seleccionadas().length }}/3
+      </span>
+      <p-button label="Inscribirse" icon="pi pi-check" [loading]="guardando()"
+                [disabled]="seleccionadas().length === 0" (onClick)="inscribir()" />
+    </div>
+  </div>
+
+  <p-message severity="info"
+             text="Puedes seleccionar hasta 3 materias. Los profesores deben ser diferentes entre sí."
+             styleClass="mb-4 w-full" />
+
+  @if (loading()) {
+    <div class="flex justify-content-center p-6">
+      <p-progressSpinner />
+    </div>
+  } @else {
+    <p-table [value]="materias()" [tableStyle]="{'min-width': '50rem'}" stripedRows>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width:3.5rem"></th>
+          <th>Materia</th>
+          <th>Profesor</th>
+          <th>Créditos</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-materia>
+        <tr>
+          <td>
+            <p-checkbox [value]="materia.materiaId" [(ngModel)]="seleccionadas"
+                        [disabled]="!estaSeleccionada(materia.materiaId) && seleccionadas().length >= 3" />
+          </td>
+          <td>{{ materia.nombre }}</td>
+          <td>{{ materia.nombreProfesor }}</td>
+          <td>{{ materia.creditos }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  }
+</div>

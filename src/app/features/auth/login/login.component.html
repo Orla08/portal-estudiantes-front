@@ -1,0 +1,43 @@
+<div class="flex justify-content-center align-items-center min-h-screen login-bg">
+  <p-card class="w-full md:w-4" styleClass="w-full">
+    <ng-template pTemplate="title">
+      <div class="flex align-items-center gap-2 mb-1">
+        <i class="pi pi-graduation-cap text-primary text-2xl"></i>
+        <span>Portal Estudiantes</span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="subtitle">
+      <span class="text-600 text-sm">Ingresa tus credenciales para continuar</span>
+    </ng-template>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-column gap-3 mt-2">
+      <div class="flex flex-column gap-1">
+        <label for="nombreUsuario" class="font-semibold text-sm">Usuario</label>
+        <input id="nombreUsuario" pInputText formControlName="nombreUsuario"
+               placeholder="Ingresa tu usuario…" class="w-full"
+               autocomplete="username" name="nombreUsuario" />
+        @if (form.get('nombreUsuario')?.invalid && form.get('nombreUsuario')?.touched) {
+          <small class="text-red-500">El usuario es requerido</small>
+        }
+      </div>
+      <div class="flex flex-column gap-1">
+        <label for="contrasena" class="font-semibold text-sm">Contraseña</label>
+        <p-password id="contrasena" formControlName="contrasena"
+                    [feedback]="false" [toggleMask]="true"
+                    styleClass="w-full" inputStyleClass="w-full"
+                    autocomplete="current-password" />
+        @if (form.get('contrasena')?.invalid && form.get('contrasena')?.touched) {
+          <small class="text-red-500">La contraseña es requerida</small>
+        }
+      </div>
+      @if (errorMsg()) {
+        <p-message severity="error" [text]="errorMsg()!" />
+      }
+      <p-button type="submit" label="Ingresar" icon="pi pi-sign-in"
+                [loading]="loading()" styleClass="w-full mt-1" />
+      <div class="text-center">
+        <span class="text-sm text-600">¿No tienes cuenta? </span>
+        <a routerLink="/registro" class="text-primary font-semibold text-sm">Registrarse</a>
+      </div>
+    </form>
+  </p-card>
+</div>

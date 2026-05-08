@@ -1,0 +1,130 @@
+<app-navbar />
+<div class="p-4 md:p-6 animate-in">
+  <div class="text-center mb-5">
+    <div class="inline-flex align-items-center justify-content-center mb-3 card-icon card-icon--blue">
+      <i class="pi pi-graduation-cap" style="font-size:1.75rem"></i>
+    </div>
+    <h1 class="text-3xl font-bold m-0" style="letter-spacing:-0.5px">
+      Bienvenido, <span class="text-capitalize">{{ authService.nombreUsuario() }}</span>
+    </h1>
+    <p class="text-600 mt-2 mb-0">Portal de Gestión Académica</p>
+  </div>
+
+  <div class="grid">
+    @if (!authService.isAdmin()) {
+      <div class="col-12 md:col-4">
+        <p-card class="dashboard-card h-full">
+          <div class="card-icon card-icon--blue">
+            <i class="pi pi-book"></i>
+          </div>
+          <h3 class="text-lg font-bold m-0 mb-1">Mi Inscripción</h3>
+          <p class="text-xs text-600 m-0 mb-3">Gestiona tus materias inscritas</p>
+          <p class="text-sm text-700 m-0">
+            Consulta y administra las materias en las que estás inscrito este semestre.
+          </p>
+          <ng-template pTemplate="footer">
+            <p-button label="Ver Inscripción" icon="pi pi-arrow-right" iconPos="right"
+                      routerLink="/inscripcion" styleClass="w-full" />
+          </ng-template>
+        </p-card>
+      </div>
+      <div class="col-12 md:col-4">
+        <p-card class="dashboard-card dashboard-card--orange h-full">
+          <div class="card-icon card-icon--orange">
+            <i class="pi pi-plus-circle"></i>
+          </div>
+          <h3 class="text-lg font-bold m-0 mb-1">Selección de Materias</h3>
+          <p class="text-xs text-600 m-0 mb-3">Inscríbete en nuevas materias</p>
+          <p class="text-sm text-700 m-0">
+            Selecciona hasta 3 materias con profesores diferentes para este semestre.
+          </p>
+          <ng-template pTemplate="footer">
+            <p-button label="Seleccionar Materias" icon="pi pi-arrow-right" iconPos="right"
+                      routerLink="/inscripcion/seleccion" severity="warn" styleClass="w-full" />
+          </ng-template>
+        </p-card>
+      </div>
+      <div class="col-12 md:col-4">
+        <p-card class="dashboard-card dashboard-card--purple h-full">
+          <div class="card-icon card-icon--purple">
+            <i class="pi pi-users"></i>
+          </div>
+          <h3 class="text-lg font-bold m-0 mb-1">Compañeros</h3>
+          <p class="text-xs text-600 m-0 mb-3">Conoce a tus compañeros de clase</p>
+          <p class="text-sm text-700 m-0">
+            Consulta quiénes comparten tus mismas materias este semestre.
+          </p>
+          <ng-template pTemplate="footer">
+            <div class="btn-purple">
+              <p-button label="Ver Compañeros" icon="pi pi-arrow-right" iconPos="right"
+                        routerLink="/inscripcion/companeros" styleClass="w-full" />
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    }
+
+    @if (authService.isAdmin()) {
+      <div class="col-12 md:col-3">
+        <p-card class="dashboard-card h-full">
+          <div class="card-icon card-icon--blue">
+            <i class="pi pi-users"></i>
+          </div>
+          <h3 class="text-lg font-bold m-0 mb-1">Estudiantes</h3>
+          <p class="text-xs text-600 m-0 mb-3">Gestión de estudiantes</p>
+          <p class="text-sm text-700 m-0">Administra los estudiantes registrados en el sistema.</p>
+          <ng-template pTemplate="footer">
+            <p-button label="Gestionar" icon="pi pi-arrow-right" iconPos="right"
+                      routerLink="/admin/estudiantes" styleClass="w-full" />
+          </ng-template>
+        </p-card>
+      </div>
+      <div class="col-12 md:col-3">
+        <p-card class="dashboard-card dashboard-card--orange h-full">
+          <div class="card-icon card-icon--orange">
+            <i class="pi pi-book"></i>
+          </div>
+          <h3 class="text-lg font-bold m-0 mb-1">Materias</h3>
+          <p class="text-xs text-600 m-0 mb-3">Gestión de materias</p>
+          <p class="text-sm text-700 m-0">Administra el catálogo de materias disponibles.</p>
+          <ng-template pTemplate="footer">
+            <p-button label="Gestionar" icon="pi pi-arrow-right" iconPos="right"
+                      routerLink="/admin/materias" severity="warn" styleClass="w-full" />
+          </ng-template>
+        </p-card>
+      </div>
+      <div class="col-12 md:col-3">
+        <p-card class="dashboard-card dashboard-card--indigo h-full">
+          <div class="card-icon card-icon--indigo">
+            <i class="pi pi-user"></i>
+          </div>
+          <h3 class="text-lg font-bold m-0 mb-1">Profesores</h3>
+          <p class="text-xs text-600 m-0 mb-3">Gestión de profesores</p>
+          <p class="text-sm text-700 m-0">Administra los profesores registrados en el sistema.</p>
+          <ng-template pTemplate="footer">
+            <div class="btn-indigo">
+              <p-button label="Gestionar" icon="pi pi-arrow-right" iconPos="right"
+                        routerLink="/admin/profesores" styleClass="w-full" />
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+      <div class="col-12 md:col-3">
+        <p-card class="dashboard-card dashboard-card--teal h-full">
+          <div class="card-icon card-icon--teal">
+            <i class="pi pi-key"></i>
+          </div>
+          <h3 class="text-lg font-bold m-0 mb-1">Usuarios</h3>
+          <p class="text-xs text-600 m-0 mb-3">Gestión de usuarios</p>
+          <p class="text-sm text-700 m-0">Administra los usuarios y roles del sistema.</p>
+          <ng-template pTemplate="footer">
+            <div class="btn-teal">
+              <p-button label="Gestionar" icon="pi pi-arrow-right" iconPos="right"
+                        routerLink="/admin/usuarios" styleClass="w-full" />
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    }
+  </div>
+</div>

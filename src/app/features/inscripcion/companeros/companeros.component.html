@@ -1,0 +1,41 @@
+<app-navbar />
+<div class="p-4 md:p-6 animate-in">
+  <div class="page-header">
+    <a class="page-header__back" routerLink="/inicio" aria-label="Volver al inicio">
+      <i class="pi pi-arrow-left"></i>
+    </a>
+    <h2 class="page-header__title">Compañeros de Clase</h2>
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-content-center p-6">
+      <p-progressSpinner />
+    </div>
+  } @else {
+    <p-table [value]="companeros()" [tableStyle]="{'min-width': '40rem'}" stripedRows
+             groupRowsBy="nombreMateria" rowGroupMode="subheader">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Materia</th>
+          <th>Compañero</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="groupheader" let-companero>
+        <tr pRowGroupHeader>
+          <td colspan="2" class="font-bold" style="background:#f0f4ff;color:var(--portal-blue)">
+            <i class="pi pi-book mr-2"></i>{{ companero.nombreMateria }}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-companero>
+        <tr>
+          <td>{{ companero.nombreMateria }}</td>
+          <td>{{ companero.nombreCompanero }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr><td colspan="2" class="text-center p-5">No tienes compañeros registrados</td></tr>
+      </ng-template>
+    </p-table>
+  }
+</div>

@@ -1,0 +1,54 @@
+<app-navbar />
+<p-toast />
+<div class="p-4 md:p-6 animate-in">
+  <div class="page-header">
+    <a class="page-header__back" routerLink="/admin/estudiantes" aria-label="Volver a estudiantes">
+      <i class="pi pi-arrow-left"></i>
+    </a>
+    <h2 class="page-header__title">{{ esEdicion() ? 'Editar Estudiante' : 'Nuevo Estudiante' }}</h2>
+  </div>
+
+  <div class="flex justify-content-center">
+    <div style="width:100%;max-width:600px">
+    <p-card class="w-full">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-column gap-3">
+        <div class="flex flex-column gap-1">
+          <label class="font-semibold text-sm">Nombre completo</label>
+          <input pInputText formControlName="nombre" class="w-full"
+                 autocomplete="name" name="nombre" />
+          @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+            <small class="text-red-500">Requerido</small>
+          }
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="font-semibold text-sm">Email</label>
+          <input pInputText type="email" formControlName="email" class="w-full"
+                 autocomplete="email" name="email" spellcheck="false" />
+          @if (form.get('email')?.invalid && form.get('email')?.touched) {
+            <small class="text-red-500">Email válido requerido</small>
+          }
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="font-semibold text-sm">Programa de Crédito</label>
+          <p-select formControlName="programaCreditoId" [options]="programas()"
+                    optionLabel="nombre" optionValue="programaCreditoId"
+                    placeholder="Seleccione…" styleClass="w-full" />
+          @if (form.get('programaCreditoId')?.invalid && form.get('programaCreditoId')?.touched) {
+            <small class="text-red-500">Requerido</small>
+          }
+        </div>
+        @if (errorMsg()) {
+          <p-message severity="error" [text]="errorMsg()!" />
+        }
+        <div class="flex gap-2 justify-content-end mt-1">
+          <p-button label="Cancelar" severity="secondary" type="button"
+                    (onClick)="router.navigate(['/admin/estudiantes'])" />
+          <p-button type="submit"
+                    [label]="esEdicion() ? 'Actualizar' : 'Crear Estudiante'"
+                    [loading]="loading()" />
+        </div>
+      </form>
+    </p-card>
+    </div>
+  </div>
+</div>

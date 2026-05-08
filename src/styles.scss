@@ -1,0 +1,637 @@
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
+/* ================================================================
+   PORTAL ESTUDIANTES — DESIGN SYSTEM
+   Palette: Navy navbar · Blue primary · Orange edit · Red delete
+   ================================================================ */
+
+:root {
+  --portal-bg: #f1f5f9;
+  --portal-surface: #ffffff;
+  --portal-blue: #2563eb;
+  --portal-blue-dark: #1d4ed8;
+  --portal-blue-light: #dbeafe;
+  --portal-orange: #f97316;
+  --portal-orange-dark: #ea580c;
+  --portal-orange-light: #ffedd5;
+  --portal-red: #dc2626;
+  --portal-red-dark: #b91c1c;
+  --portal-navy: #0f172a;
+  --portal-text: #0f172a;
+  --portal-text-muted: #64748b;
+  --portal-border: #e2e8f0;
+  --portal-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.08);
+  --portal-shadow-hover: 0 4px 16px rgba(15, 23, 42, 0.12), 0 24px 48px rgba(15, 23, 42, 0.12);
+  --portal-radius: 14px;
+  --portal-radius-sm: 8px;
+
+  /* === PrimeNG: Warn → Orange (no amarillo) === */
+  --p-button-warn-background: #f97316;
+  --p-button-warn-hover-background: #ea580c;
+  --p-button-warn-active-background: #c2410c;
+  --p-button-warn-border-color: #f97316;
+  --p-button-warn-hover-border-color: #ea580c;
+  --p-button-warn-color: #ffffff;
+  --p-button-warn-hover-color: #ffffff;
+  --p-button-text-warn-color: #f97316;
+  --p-button-text-warn-hover-background: rgba(249, 115, 22, 0.08);
+  --p-button-text-warn-active-background: rgba(249, 115, 22, 0.16);
+
+  /* === PrimeNG: Success Tag → Blue (sin verde) === */
+  --p-tag-success-background: #dbeafe;
+  --p-tag-success-color: #1e40af;
+}
+
+/* ──────────────────────── BASE ──────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--portal-bg);
+  color: var(--portal-text);
+}
+
+/* ──────────────────────── NAVBAR ──────────────────────── */
+
+.p-menubar {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #2563eb 100%) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.5rem 1.75rem !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.35) !important;
+
+  .p-menubar-start .font-bold {
+    font-size: 1.2rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ffffff 0%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.4px;
+  }
+
+  .p-menubar-end .text-sm {
+    color: rgba(255, 255, 255, 0.65) !important;
+  }
+
+  .p-menuitem-link {
+    color: #ffffff !important;
+    border-radius: 6px !important;
+    transition: background 0.18s, color 0.18s !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      color: #ffffff !important;
+    }
+
+    .p-menuitem-icon,
+    .p-menuitem-text,
+    span {
+      color: #ffffff !important;
+    }
+  }
+
+  .p-menuitem.p-menuitem-active > .p-menuitem-content > .p-menuitem-link {
+    background: rgba(255, 255, 255, 0.18) !important;
+    color: #ffffff !important;
+
+    .p-menuitem-icon,
+    .p-menuitem-text,
+    span {
+      color: #ffffff !important;
+    }
+  }
+
+  /* Submenú desplegable */
+  .p-submenu-list,
+  .p-menubar-submenu {
+    background: #1e3a8a !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.35) !important;
+    overflow: hidden !important;
+    padding: 0.25rem !important;
+
+    .p-menuitem-link {
+      padding: 0.6rem 1rem !important;
+      border-radius: 6px !important;
+    }
+  }
+}
+
+/* Sobreescribe las CSS variables de design tokens del menubar */
+.p-menubar {
+  --p-menubar-item-color: #ffffff;
+  --p-menubar-item-hover-color: #ffffff;
+  --p-menubar-item-focus-color: #ffffff;
+  --p-menubar-item-active-color: #ffffff;
+  --p-menubar-item-icon-color: #ffffff;
+  --p-menubar-item-icon-hover-color: #ffffff;
+  --p-menubar-item-icon-focus-color: #ffffff;
+  --p-menubar-item-icon-active-color: #ffffff;
+}
+
+/* ──────────────────────── PAGE LAYOUT ──────────────────────── */
+
+.page-container {
+  padding: 1.5rem 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--portal-surface);
+    box-shadow: var(--portal-shadow);
+    color: var(--portal-blue);
+    cursor: pointer;
+    border: 1.5px solid var(--portal-border);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    flex-shrink: 0;
+
+    &:hover {
+      background: var(--portal-blue);
+      color: #ffffff;
+      border-color: var(--portal-blue);
+      transform: translateX(-2px);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+
+    i {
+      font-size: 0.88rem;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--portal-text);
+    letter-spacing: -0.4px;
+    flex: 1;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+/* ──────────────────────── CARDS ──────────────────────── */
+
+.p-card {
+  border-radius: var(--portal-radius) !important;
+  box-shadow: var(--portal-shadow) !important;
+  border: 1px solid var(--portal-border) !important;
+  overflow: hidden !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease !important;
+  background: var(--portal-surface) !important;
+
+  &:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: var(--portal-shadow-hover) !important;
+  }
+
+  .p-card-title {
+    font-weight: 700 !important;
+    color: var(--portal-text) !important;
+    font-size: 1.05rem !important;
+    letter-spacing: -0.2px;
+  }
+
+  .p-card-subtitle {
+    color: var(--portal-text-muted) !important;
+    font-size: 0.82rem !important;
+  }
+
+  .p-card-footer {
+    border-top: 1px solid var(--portal-border) !important;
+    padding-top: 1rem !important;
+    margin-top: 0.25rem !important;
+  }
+}
+
+/* Dashboard cards — acento superior de color */
+.dashboard-card {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--portal-radius);
+    padding-top: 4px;
+    background: linear-gradient(90deg, var(--portal-blue) 0%, #60a5fa 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  &--orange::before {
+    background: linear-gradient(90deg, var(--portal-orange) 0%, #fb923c 100%);
+  }
+  &--purple::before {
+    background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+  }
+  &--teal::before {
+    background: linear-gradient(90deg, #0d9488 0%, #2dd4bf 100%);
+  }
+  &--indigo::before {
+    background: linear-gradient(90deg, #4338ca 0%, #818cf8 100%);
+  }
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
+  margin-bottom: 0.875rem;
+
+  i {
+    font-size: 1.35rem;
+  }
+
+  &--blue {
+    background: var(--portal-blue-light);
+    color: var(--portal-blue);
+  }
+  &--orange {
+    background: var(--portal-orange-light);
+    color: var(--portal-orange);
+  }
+  &--purple {
+    background: #ede9fe;
+    color: #7c3aed;
+  }
+  &--teal {
+    background: #ccfbf1;
+    color: #0d9488;
+  }
+  &--indigo {
+    background: #e0e7ff;
+    color: #4338ca;
+  }
+}
+
+/* ──────────────────────── TABLES ──────────────────────── */
+
+.p-datatable {
+  border-radius: var(--portal-radius) !important;
+  overflow: hidden !important;
+  box-shadow: var(--portal-shadow) !important;
+  border: 1px solid var(--portal-border) !important;
+  background: var(--portal-surface) !important;
+
+  .p-datatable-thead > tr > th {
+    background: #f8fafc !important;
+    color: var(--portal-text-muted) !important;
+    font-weight: 600 !important;
+    font-size: 0.72rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    border-bottom: 1px solid var(--portal-border) !important;
+    padding: 0.9rem 1rem !important;
+  }
+
+  .p-datatable-tbody > tr > td {
+    padding: 0.875rem 1rem !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    font-size: 0.9rem !important;
+    color: var(--portal-text) !important;
+  }
+
+  .p-datatable-tbody > tr {
+    transition: background 0.14s !important;
+
+    &:hover {
+      background: #f8fafc !important;
+    }
+
+    &:last-child > td {
+      border-bottom: none !important;
+    }
+  }
+
+  .p-datatable-tbody > tr:nth-child(even) > td {
+    background: #fafbfd;
+  }
+
+  .p-datatable-tbody > tr:nth-child(even):hover > td {
+    background: #f8fafc !important;
+  }
+
+  .p-datatable-paginator-bottom {
+    border-top: 1px solid var(--portal-border) !important;
+    background: var(--portal-surface) !important;
+  }
+
+  /* Group header rows */
+  .p-rowgroup-header td {
+    background: #f0f4ff !important;
+    color: var(--portal-blue) !important;
+    font-weight: 700 !important;
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid #dbeafe !important;
+  }
+}
+
+/* ──────────────────────── BUTTONS ──────────────────────── */
+
+.p-button {
+  border-radius: var(--portal-radius-sm) !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link) {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+
+  &:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+  }
+
+  &:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+.p-button-warn:not(.p-button-text):hover {
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35) !important;
+}
+
+.p-button-danger:not(.p-button-text):hover {
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3) !important;
+}
+
+/* Botones de icono en tablas */
+.p-button.p-button-text.p-button-sm,
+.p-button[size="small"].p-button-text {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+
+  &:hover {
+    transform: none !important;
+  }
+}
+
+/* ──────────────────────── TAGS ──────────────────────── */
+
+.p-tag {
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.05em !important;
+  padding: 0.22rem 0.7rem !important;
+  text-transform: uppercase !important;
+}
+
+/* ──────────────────────── DIALOGS ──────────────────────── */
+
+.p-dialog {
+  border-radius: var(--portal-radius) !important;
+  overflow: hidden !important;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.22) !important;
+  border: none !important;
+
+  .p-dialog-header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%) !important;
+    padding: 1.2rem 1.5rem !important;
+    border-bottom: none !important;
+
+    .p-dialog-title {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      font-size: 1rem !important;
+      letter-spacing: -0.2px;
+    }
+
+    .p-dialog-close-button,
+    .p-dialog-header-icon {
+      color: rgba(255, 255, 255, 0.65) !important;
+      border-radius: 6px !important;
+
+      &:hover {
+        color: #ffffff !important;
+        background: rgba(255, 255, 255, 0.12) !important;
+      }
+    }
+  }
+
+  .p-dialog-content {
+    padding: 1.5rem !important;
+    background: var(--portal-surface) !important;
+  }
+
+  .p-dialog-footer {
+    background: var(--portal-surface) !important;
+    padding: 0 1.5rem 1.5rem !important;
+    border-top: none !important;
+  }
+}
+
+/* ──────────────────────── INPUTS ──────────────────────── */
+
+.p-inputtext,
+.p-inputnumber-input,
+.p-password-input {
+  border-radius: var(--portal-radius-sm) !important;
+  border: 1.5px solid var(--portal-border) !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+
+  &:focus {
+    border-color: var(--portal-blue) !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+    outline: none !important;
+  }
+}
+
+.p-select {
+  border-radius: var(--portal-radius-sm) !important;
+  border: 1.5px solid var(--portal-border) !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+
+  &.p-focus,
+  &:focus-within {
+    border-color: var(--portal-blue) !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+  }
+}
+
+/* ──────────────────────── LOGIN PAGE ──────────────────────── */
+
+.login-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 40%, #2563eb 75%, #60a5fa 100%) !important;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.18) 0%, transparent 70%);
+    top: -250px;
+    right: -150px;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, transparent 70%);
+    bottom: -150px;
+    left: -100px;
+    pointer-events: none;
+  }
+
+  .p-card {
+    position: relative;
+    backdrop-filter: blur(12px) !important;
+    background: rgba(255, 255, 255, 0.97) !important;
+
+    &:hover {
+      transform: none !important;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb 0%, #7c3aed 50%, #06b6d4 100%);
+      border-radius: var(--portal-radius) var(--portal-radius) 0 0;
+    }
+
+    .p-card-title {
+      font-size: 1.4rem !important;
+      letter-spacing: -0.5px;
+    }
+  }
+}
+
+/* ──────────────────────── DASHBOARD BUTTON COLOR WRAPPERS ──────────────────────── */
+
+.btn-purple .p-button:not(.p-button-text):not(.p-button-outlined) {
+  background: #7c3aed !important;
+  border-color: #7c3aed !important;
+
+  &:hover {
+    background: #6d28d9 !important;
+    border-color: #6d28d9 !important;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35) !important;
+  }
+}
+
+.btn-indigo .p-button:not(.p-button-text):not(.p-button-outlined) {
+  background: #4338ca !important;
+  border-color: #4338ca !important;
+
+  &:hover {
+    background: #3730a3 !important;
+    border-color: #3730a3 !important;
+    box-shadow: 0 4px 14px rgba(67, 56, 202, 0.35) !important;
+  }
+}
+
+.btn-teal .p-button:not(.p-button-text):not(.p-button-outlined) {
+  background: #0d9488 !important;
+  border-color: #0d9488 !important;
+
+  &:hover {
+    background: #0f766e !important;
+    border-color: #0f766e !important;
+    box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35) !important;
+  }
+}
+
+/* ──────────────────────── ANIMATIONS ──────────────────────── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeInUp 0.32s ease forwards;
+}
+
+/* Stagger dashboard cards */
+.grid .col-12:nth-child(1) { animation-delay: 0ms; }
+.grid .col-12:nth-child(2) { animation-delay: 60ms; }
+.grid .col-12:nth-child(3) { animation-delay: 120ms; }
+.grid .col-12:nth-child(4) { animation-delay: 180ms; }
+
+/* ──────────────────────── ACCESSIBILITY ──────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ──────────────────────── MISC ──────────────────────── */
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--portal-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+
+  &:hover {
+    background: #94a3b8;
+  }
+}

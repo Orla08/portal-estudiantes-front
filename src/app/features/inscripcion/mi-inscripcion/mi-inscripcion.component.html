@@ -1,0 +1,56 @@
+<app-navbar />
+<p-toast />
+<app-confirm-dialog />
+<div class="p-4 md:p-6 animate-in">
+  <div class="page-header">
+    <a class="page-header__back" routerLink="/inicio" aria-label="Volver al inicio">
+      <i class="pi pi-arrow-left"></i>
+    </a>
+    <h2 class="page-header__title">Mi Inscripción</h2>
+    <div class="page-header__actions">
+      <p-button label="Seleccionar Materias" icon="pi pi-plus"
+                routerLink="/inscripcion/seleccion" severity="secondary" />
+      @if (inscripciones().length > 0) {
+        <p-button label="Cancelar Todo" icon="pi pi-trash"
+                  severity="danger" (onClick)="confirmarCancelar()" />
+      }
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-content-center p-6"><p-progressSpinner /></div>
+  } @else {
+    <p-table [value]="inscripciones()" [tableStyle]="{'min-width': '50rem'}" stripedRows>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Materia</th>
+          <th>Profesor</th>
+          <th>Créditos</th>
+          <th>Fecha Registro</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-inscripcion>
+        <tr>
+          <td>{{ inscripcion.nombreMateria }}</td>
+          <td>{{ inscripcion.nombreProfesor }}</td>
+          <td>{{ inscripcion.creditos }}</td>
+          <td>{{ inscripcion.fechaRegistro | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <p-tag [value]="inscripcion.estado ? 'Activo' : 'Inactivo'"
+                   [severity]="inscripcion.estado ? 'info' : 'danger'" />
+          </td>
+          <td>
+            <p-button icon="pi pi-trash" severity="danger" size="small" [text]="true"
+                      (onClick)="confirmarCancelarMateria(inscripcion)"
+                      aria-label="Cancelar materia" />
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr><td colspan="6" class="text-center p-5">No tienes materias inscritas</td></tr>
+      </ng-template>
+    </p-table>
+  }
+</div>

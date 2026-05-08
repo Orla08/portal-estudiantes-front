@@ -1,0 +1,74 @@
+<app-navbar />
+<p-toast />
+<app-confirm-dialog />
+<div class="p-4 md:p-6 animate-in">
+  <div class="page-header">
+    <a class="page-header__back" routerLink="/inicio" aria-label="Volver al inicio">
+      <i class="pi pi-arrow-left"></i>
+    </a>
+    <h2 class="page-header__title">Usuarios</h2>
+    <div class="page-header__actions">
+      <p-button label="Nuevo Usuario" icon="pi pi-plus" (onClick)="abrirDialog()" />
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="flex justify-content-center p-6"><p-progressSpinner /></div>
+  } @else {
+    <p-table [value]="usuarios()" stripedRows [paginator]="true" [rows]="10">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Usuario</th><th>Email</th><th>Rol</th><th>Registro</th><th>Estado</th><th>Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-u>
+        <tr>
+          <td>{{ u.nombreUsuario }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.rol }}</td>
+          <td>{{ u.fechaRegistro | date:'dd/MM/yyyy' }}</td>
+          <td><p-tag [value]="u.estado ? 'Activo' : 'Inactivo'" [severity]="u.estado | estadoBadge" /></td>
+          <td>
+            <p-button icon="pi pi-pencil" severity="warn" size="small" [text]="true"
+                      (onClick)="abrirDialog(u)" aria-label="Editar usuario" />
+            <p-button icon="pi pi-trash" severity="danger" size="small" [text]="true"
+                      (onClick)="confirmarEliminar(u)" aria-label="Eliminar usuario" />
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr><td colspan="6" class="text-center p-5">No hay usuarios registrados</td></tr>
+      </ng-template>
+    </p-table>
+  }
+</div>
+
+<p-dialog [header]="editando ? 'Editar Usuario' : 'Nuevo Usuario'" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="flex flex-column gap-3 pt-2">
+    <div class="flex flex-column gap-1">
+      <label class="font-semibold text-sm">Nombre de Usuario</label>
+      <input pInputText formControlName="nombreUsuario" class="w-full"
+             autocomplete="username" name="nombreUsuario" />
+    </div>
+    <div class="flex flex-column gap-1">
+      <label class="font-semibold text-sm">Email</label>
+      <input pInputText type="email" formControlName="email" class="w-full"
+             autocomplete="email" name="email" spellcheck="false" />
+    </div>
+    @if (!editando) {
+      <div class="flex flex-column gap-1">
+        <label class="font-semibold text-sm">Contraseña</label>
+        <input pInputText type="password" formControlName="contrasena" class="w-full"
+               autocomplete="new-password" name="contrasena" />
+      </div>
+    }
+    <div class="flex flex-column gap-1">
+      <label class="font-semibold text-sm">Rol</label>
+      <p-select formControlName="rol" [options]="roles" placeholder="Seleccione…" styleClass="w-full" />
+    </div>
+    <div class="flex gap-2 justify-content-end pt-1">
+      <p-button label="Cancelar" severity="secondary" type="button" (onClick)="dialogVisible = false" />
+      <p-button [label]="editando ? 'Actualizar' : 'Crear'" type="submit" [loading]="guardando()" />
+    </div>
+  </form>
+</p-dialog>

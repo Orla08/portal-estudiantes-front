@@ -1,0 +1,11 @@
+<p-menubar [model]="menuItems">
+  <ng-template pTemplate="start">
+    <span class="font-bold text-xl text-primary">Portal Estudiantes</span>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="flex align-items-center gap-2">
+      <span class="text-sm text-capitalize">{{ authService.nombreUsuario() }}</span>
+      <p-button label="Salir" icon="pi pi-sign-out" severity="secondary" size="small" (onClick)="logout()" />
+    </div>
+  </ng-template>
+</p-menubar>
