@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 
 // ─── helpers ────────────────────────────────────────────────────────────────
 
-function buildAuthServiceMock(isAuthenticated: boolean): Partial<AuthService> {
+function buildAuthServiceMock(isAuthenticated: boolean): any {
   return {
     isAuthenticated: jasmine.createSpy('isAuthenticated').and.returnValue(isAuthenticated),
   };

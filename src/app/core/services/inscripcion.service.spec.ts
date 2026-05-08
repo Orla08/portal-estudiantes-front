@@ -165,10 +165,13 @@ describe('InscripcionService', () => {
   });
 
   it('cancelarPorMateria() no debería cancelar otras materias (URL específica)', () => {
-    service.cancelarPorMateria(ESTUDIANTE_ID, MATERIA_ID).subscribe();
+    let responded = false;
+    service.cancelarPorMateria(ESTUDIANTE_ID, MATERIA_ID).subscribe(() => responded = true);
 
     // Verificar que NO apunta a la URL general de inscripción
     httpMock.expectNone(INSCRIPCION_URL);
     httpMock.expectOne(INSCRIPCION_MAT_URL).flush({ success: true, data: null });
+
+    expect(responded).toBeTrue();
   });
 });
