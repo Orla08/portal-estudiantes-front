@@ -32,7 +32,7 @@
           <label class="font-semibold text-sm">Programa de Crédito</label>
           <p-select formControlName="programaCreditoId" [options]="programas()"
                     optionLabel="nombre" optionValue="programaCreditoId"
-                    placeholder="Seleccione…" styleClass="w-full" />
+                    placeholder="Seleccione…" styleClass="w-full" appendTo="body"/>
           @if (form.get('programaCreditoId')?.invalid && form.get('programaCreditoId')?.touched) {
             <small class="text-red-500">Requerido</small>
           }

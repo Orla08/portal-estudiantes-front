@@ -136,6 +136,67 @@ body {
   --p-menubar-item-icon-active-color: #ffffff;
 }
 
+/* ── Menú hamburger (mobile ≤ 960px) ──────────────────────────────────────── */
+
+/* Botón hamburger: ícono visible sobre el fondo oscuro */
+.p-menubar .p-menubar-button {
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  border-radius: 8px !important;
+  width: 36px !important;
+  height: 36px !important;
+  transition: background 0.18s !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+  }
+
+  svg, .p-icon {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+  }
+}
+
+/* Panel desplegable del hamburger: mantener paleta oscura del navbar */
+.p-menubar.p-menubar-mobile .p-menubar-root-list {
+  background: linear-gradient(180deg, #0f172a 0%, #1e3a8a 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: none !important;
+  border-radius: 0 0 14px 14px !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.5) !important;
+  padding: 0.5rem !important;
+  margin-top: 0 !important;
+
+  /* Items del menú dentro del panel mobile */
+  .p-menuitem-link {
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 0.7rem 1rem !important;
+    transition: background 0.15s !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    .p-menuitem-icon,
+    .p-menuitem-text,
+    span {
+      color: #ffffff !important;
+    }
+  }
+
+  /* Submenús anidados dentro del panel mobile */
+  .p-submenu-list,
+  .p-menubar-submenu {
+    background: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.4) !important;
+  }
+}
+
 /* ──────────────────────── PAGE LAYOUT ──────────────────────── */
 
 .page-container {
@@ -596,6 +657,83 @@ body {
 .grid .col-12:nth-child(2) { animation-delay: 60ms; }
 .grid .col-12:nth-child(3) { animation-delay: 120ms; }
 .grid .col-12:nth-child(4) { animation-delay: 180ms; }
+
+/* ──────────────────────── RESPONSIVE ──────────────────────── */
+
+// Wrapper para tablas con scroll horizontal en mobile
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--portal-radius);
+
+  // Eliminar doble borde al envolver la tabla
+  .p-datatable {
+    border-radius: 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  // Navbar: reducir padding lateral
+  .p-menubar {
+    padding: 0.5rem 0.875rem !important;
+  }
+
+  // Page header: barra de título + acciones → 2 líneas
+  .page-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    &__title {
+      font-size: 1.15rem;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    &__actions {
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.375rem;
+      border-top: 1px solid var(--portal-border);
+      padding-top: 0.5rem;
+    }
+  }
+
+  // Botones de acción: icono-only en móvil muy pequeño para ahorrar espacio
+  .page-header__actions .p-button .p-button-label {
+    display: none;
+  }
+  .page-header__actions .p-button {
+    padding: 0.45rem 0.6rem !important;
+  }
+
+  // Excepción: mostrar label del botón principal cuando hay solo uno
+  .page-header__actions:has(> :only-child) .p-button .p-button-label {
+    display: inline;
+  }
+  .page-header__actions:has(> :only-child) .p-button {
+    padding: revert !important;
+  }
+
+  // Diálogos: usar casi todo el ancho de pantalla
+  .p-dialog {
+    width: 95vw !important;
+    max-width: 95vw !important;
+  }
+
+  // Login / Registro: espaciado lateral
+  .login-bg .p-card,
+  .p-card.w-full {
+    margin: 0 0.75rem;
+  }
+}
+
+// Punto de corte md (768px): mostrar label en page-header__actions
+@media (min-width: 577px) {
+  .page-header__actions .p-button .p-button-label {
+    display: inline;
+  }
+}
 
 /* ──────────────────────── ACCESSIBILITY ──────────────────────── */
 

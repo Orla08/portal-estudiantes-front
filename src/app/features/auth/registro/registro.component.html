@@ -17,7 +17,7 @@
       </div>
       <div class="flex flex-column gap-1">
         <label class="font-semibold">Programa de Crédito</label>
-        <p-select formControlName="programaCreditoId" [options]="programas()" optionLabel="nombre" optionValue="programaCreditoId" placeholder="Seleccione un programa" styleClass="w-full" />
+        <p-select formControlName="programaCreditoId" [options]="programas()" appendTo="body" optionLabel="nombre" optionValue="programaCreditoId" placeholder="Seleccione un programa" styleClass="w-full" />
         @if (form.get('programaCreditoId')?.invalid && form.get('programaCreditoId')?.touched) {
           <small class="text-red-500">Requerido</small>
         }

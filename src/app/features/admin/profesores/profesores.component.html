@@ -15,7 +15,8 @@
   @if (loading()) {
     <div class="flex justify-content-center p-6"><p-progressSpinner /></div>
   } @else {
-    <p-table [value]="profesores()" stripedRows [paginator]="true" [rows]="10">
+    <div class="table-responsive">
+    <p-table [value]="profesores()" [tableStyle]="{'min-width': '20rem'}" stripedRows [paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
           <th>ID</th><th>Nombre</th><th>Acciones</th>
@@ -35,10 +36,12 @@
         <tr><td colspan="3" class="text-center p-5">No hay profesores registrados</td></tr>
       </ng-template>
     </p-table>
+    </div>
   }
 </div>
 
-<p-dialog [header]="editando ? 'Editar Profesor' : 'Nuevo Profesor'" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '400px'}">
+<p-dialog [header]="editando ? 'Editar Profesor' : 'Nuevo Profesor'" [(visible)]="dialogVisible" [modal]="true"
+          [style]="{width: 'min(400px, 95vw)'}">
   <form [formGroup]="form" (ngSubmit)="guardar()" class="flex flex-column gap-3 pt-2">
     <div class="flex flex-column gap-1">
       <label class="font-semibold text-sm">Nombre</label>

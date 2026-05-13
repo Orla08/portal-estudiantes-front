@@ -14,7 +14,8 @@
   @if (loading()) {
     <div class="flex justify-content-center p-6"><p-progressSpinner /></div>
   } @else {
-    <p-table [value]="programas()" stripedRows [paginator]="true" [rows]="10">
+    <div class="table-responsive">
+    <p-table [value]="programas()" [tableStyle]="{'min-width': '24rem'}" stripedRows [paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
           <th>Nombre</th><th>Créditos por Materia</th><th>Máx. Materias</th>
@@ -31,10 +32,12 @@
         <tr><td colspan="3" class="text-center p-5">No hay programas registrados</td></tr>
       </ng-template>
     </p-table>
+    </div>
   }
 </div>
 
-<p-dialog header="Nuevo Programa de Crédito" [(visible)]="dialogVisible" [modal]="true" [style]="{width: '450px'}">
+<p-dialog header="Nuevo Programa de Crédito" [(visible)]="dialogVisible" [modal]="true"
+          [style]="{width: 'min(450px, 95vw)'}">
   <form [formGroup]="form" (ngSubmit)="guardar()" class="flex flex-column gap-3 pt-2">
     <div class="flex flex-column gap-1">
       <label class="font-semibold text-sm">Nombre</label>

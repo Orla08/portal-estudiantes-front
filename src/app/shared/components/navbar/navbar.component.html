@@ -4,8 +4,12 @@
   </ng-template>
   <ng-template pTemplate="end">
     <div class="flex align-items-center gap-2">
-      <span class="text-sm text-capitalize">{{ authService.nombreUsuario() }}</span>
-      <p-button label="Salir" icon="pi pi-sign-out" severity="secondary" size="small" (onClick)="logout()" />
+      <span class="text-sm text-capitalize hidden md:inline">{{ authService.nombreUsuario() }}</span>
+      <p-button label="Salir" icon="pi pi-sign-out" severity="secondary" size="small" (onClick)="logout()"
+                styleClass="hidden md:inline-flex" />
+      <p-button icon="pi pi-sign-out" severity="secondary" size="small" (onClick)="logout()"
+                styleClass="md:hidden" [rounded]="true" [text]="true"
+                aria-label="Salir" />
     </div>
   </ng-template>
 </p-menubar>

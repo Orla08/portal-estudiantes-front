@@ -12,7 +12,8 @@
       <p-progressSpinner />
     </div>
   } @else {
-    <p-table [value]="companeros()" [tableStyle]="{'min-width': '40rem'}" stripedRows
+    <div class="table-responsive">
+    <p-table [value]="companeros()" [tableStyle]="{'min-width': '30rem'}" stripedRows
              groupRowsBy="nombreMateria" rowGroupMode="subheader">
       <ng-template pTemplate="header">
         <tr>
@@ -37,5 +38,6 @@
         <tr><td colspan="2" class="text-center p-5">No tienes compañeros registrados</td></tr>
       </ng-template>
     </p-table>
+    </div>
   }
 </div>
